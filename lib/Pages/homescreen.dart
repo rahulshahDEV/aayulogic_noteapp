@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
                                   crossAxisCount: gridExtend ? 1 : 2),
                           itemCount: box.length,
                           itemBuilder: (context, index) => Noteview(
+                            imagePath: data[index].imagePath,
                             index: index,
                             mydata: data[index],
                             content: data[index].content,

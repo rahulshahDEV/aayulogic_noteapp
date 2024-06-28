@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:notes/Pages/addnote.dart';
 import 'package:notes/Provider/notesprovider.dart';
@@ -19,6 +21,7 @@ class Noteview extends StatelessWidget {
       required this.content,
       required this.title,
       required this.index,
+      required this.imagePath,
       required this.createdAt,
       required this.updatedAt});
   final int index;
@@ -27,6 +30,7 @@ class Noteview extends StatelessWidget {
   final String createdAt; // Timestamp when the note was created (optional)
   final String updatedAt;
   final mydata;
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +53,7 @@ class Noteview extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => AddNote(
+              imagePath: imagePath,
               data: mydata,
               existingNote: content,
               existingTitle: title,
@@ -60,6 +65,7 @@ class Noteview extends StatelessWidget {
           Flexible(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              if (imagePath.isNotEmpty) Image.file(File(imagePath)),
               Text(
                 title,
                 style: TextStyle(color: Pallette.white, fontSize: 15),
@@ -74,7 +80,7 @@ class Noteview extends StatelessWidget {
               icon: 'Assets/Icons/threedot.svg',
               Colour: Pallette.white,
               onPress: () {
-                popOver(context, mydata, isSwitched);
+                popOver(context, mydata, isSwitched, content);
               })
         ]),
       ),

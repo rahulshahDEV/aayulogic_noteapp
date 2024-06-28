@@ -17,6 +17,7 @@ class NoteModalAdapter extends TypeAdapter<NoteModal> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return NoteModal(
+      imagePath: fields[4] as String,
       title: fields[0] as String,
       content: fields[1] as String,
       created: fields[2] as String,
@@ -27,7 +28,7 @@ class NoteModalAdapter extends TypeAdapter<NoteModal> {
   @override
   void write(BinaryWriter writer, NoteModal obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class NoteModalAdapter extends TypeAdapter<NoteModal> {
       ..writeByte(2)
       ..write(obj.created)
       ..writeByte(3)
-      ..write(obj.updated);
+      ..write(obj.updated)
+      ..writeByte(4)
+      ..write(obj.imagePath);
   }
 
   @override

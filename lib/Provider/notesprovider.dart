@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:notes/themes/pallette.dart';
@@ -7,6 +9,8 @@ class Notesprovider with ChangeNotifier {
   bool enableMenu = false;
   bool enableAddMenu = false;
   bool noteAdded = false;
+  bool voiceIsenabled = false;
+  // String imagePath = '';
 
   Color boxcolour = Pallette.sblack;
 
@@ -16,6 +20,12 @@ class Notesprovider with ChangeNotifier {
 
   void extendGrid() {
     gridExtend = !gridExtend;
+    notifyListeners();
+  }
+
+  void enableVoice() {
+    voiceIsenabled = !voiceIsenabled;
+
     notifyListeners();
   }
 
@@ -32,10 +42,20 @@ class Notesprovider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Widget loadImage(String imagePath) {
+  //   this.imagePath = imagePath;
+  //   // return Image.file(File(imagePath));
+  //   notifyListeners();
+  //   return Text('');
+  // }
+
   void enableAddMenus() {
     enableAddMenu = !enableAddMenu;
     if (enableMenu) {
       enableMenu = false;
+    }
+    if (enableAddMenu) {
+      voiceIsenabled = false;
     }
     notifyListeners();
   }

@@ -4,7 +4,8 @@ import 'package:notes/settings/bottomButton.dart';
 import 'package:notes/themes/pallette.dart';
 import 'package:popover/popover.dart';
 
-Future popOver(BuildContext context, var mydata, bool isSwitched) {
+Future popOver(
+    BuildContext context, var mydata, bool isSwitched, String content) {
   return showPopover(
       backgroundColor: isSwitched ? Pallette.blue : Pallette.sblack,
       width: 160,
@@ -26,6 +27,7 @@ Future popOver(BuildContext context, var mydata, bool isSwitched) {
                     icon: 'Assets/Icons/share.svg',
                     text: 'Share Note',
                     func: () {
+                      Boxes.shareText(content);
                       Navigator.pop(context);
                     }),
               ],

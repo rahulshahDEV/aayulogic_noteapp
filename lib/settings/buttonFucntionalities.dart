@@ -29,9 +29,9 @@ class _BottomFunctionalitesState extends State<BottomFunctionalites> {
 
     double height() {
       if (note.enableMenu) {
-        return 280;
+        return 260;
       } else if (note.enableAddMenu) {
-        return 220;
+        return 200;
       }
       return 80;
     }
@@ -70,7 +70,9 @@ class _BottomFunctionalitesState extends State<BottomFunctionalites> {
                 copyNote: widget.copyNote,
               ),
             } else if (note.enableAddMenu) ...{
-              NotePageAdd()
+              NotePageAdd(
+                copyNote: widget.copyNote,
+              )
             },
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

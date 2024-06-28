@@ -17,7 +17,6 @@ class NotePageMenu extends StatelessWidget {
     {'icon': 'delete.svg', 'text': 'Delete Note'},
     {'icon': 'copy.svg', 'text': 'Make a copy'},
     {'icon': 'myshare.svg', 'text': 'Share'},
-    {'icon': 'label.svg', 'text': 'Labels'}
   ];
 
   final List colours = [
@@ -74,6 +73,9 @@ class NotePageMenu extends StatelessWidget {
                 } else if (Element['icon'].toString() == 'delete.svg') {
                   HapticFeedback.vibrate();
                   Boxes.deleteByMenu(copyNote, context);
+                } else if (Element['icon'].toString() == 'myshare.svg') {
+                  HapticFeedback.vibrate();
+                  Boxes.shareText(copyNote);
                 }
               },
             )),

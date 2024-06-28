@@ -42,6 +42,28 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Sync With',
+                style: textStyle,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 60),
+                clipBehavior: Clip.hardEdge,
+                height: 20,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: Image.asset('Assets/Images/google.jpeg'),
+              ),
+              Switch(
+                activeTrackColor: Pallette.blue,
+                value: true,
+                onChanged: (value) {},
+              )
+            ],
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(

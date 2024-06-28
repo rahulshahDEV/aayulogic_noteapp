@@ -12,10 +12,13 @@ class NoteModal extends HiveObject {
   String created;
   @HiveField(3)
   String updated;
+  @HiveField(4)
+  String imagePath;
   // @HiveField(4)
   // Color activeBoxColour;
 
   NoteModal({
+    required this.imagePath,
     required this.title,
     required this.content,
     required this.created,
