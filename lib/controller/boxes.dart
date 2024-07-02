@@ -61,7 +61,11 @@ class Boxes {
             created: DateTime.now().toString(),
             updated: DateTime.now().toString());
 
-        await box.putAt(imageIndex, dataa);
+        await box.putAt(imageIndex, dataa).then(
+          (value) {
+            Navigator.pop(context);
+          },
+        );
       } on RangeError {
         context.showSnackBar('Save Note To Add Image', myduration: 1000);
       } catch (e) {

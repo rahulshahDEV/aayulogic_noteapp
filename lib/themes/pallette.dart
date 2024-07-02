@@ -4,7 +4,7 @@ class Pallette {
   static final Color black = Color(hexColour('#0E121B'));
   static final Color white = Color(hexColour('#FFFFFF'));
   static final Color blue = Color(hexColour('#3B69FA'));
-  static final Color yellow = Color(hexColour('##FFD666'));
+  static final Color yellow = Color(hexColour('#FFD666'));
   static final Color pink = Color(hexColour('#8E33FF'));
   static final Color green = Color(hexColour('#77ED8B'));
   static final Color orange = Color(hexColour('#FF5630'));

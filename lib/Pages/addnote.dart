@@ -11,33 +11,46 @@ import 'package:notes/settings/buttonFucntionalities.dart';
 import 'package:notes/settings/iconbutton.dart';
 import 'package:notes/settings/textfieldnote.dart';
 import 'package:notes/themes/pallette.dart';
-import 'package:notes/themes/themes.dart';
 import 'package:provider/provider.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 // var obj = HiveModal();
 
-class AddNote extends StatelessWidget {
-  AddNote(
+class AddNote extends StatefulWidget {
+  const AddNote(
       {super.key,
       required this.existingTitle,
       required this.imagePath,
       required this.existingNote,
       required this.data});
 
-  final List _icons = ['undo.svg', 'redo.svg', 'tick-square.svg'];
-
-  final FocusNode f1 = FocusNode();
   final String imagePath;
-
-  final FocusNode f2 = FocusNode();
-
-  final TextEditingController title = TextEditingController();
-
-  final TextEditingController note = TextEditingController();
 
   final String existingTitle;
   final String existingNote;
   final data;
+
+  @override
+  State<AddNote> createState() => _AddNoteState();
+}
+
+class _AddNoteState extends State<AddNote> {
+  final List _icons = ['undo.svg', 'redo.svg', 'tick-square.svg'];
+
+  final FocusNode f1 = FocusNode();
+  final FocusNode f2 = FocusNode();
+  final TextEditingController title = TextEditingController();
+  final TextEditingController note = TextEditingController();
+
+  // String _lastWords = '';
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    disposeAddNoteField();
+  }
 
   void disposeAddNoteField() {
     title.clear();
@@ -45,16 +58,23 @@ class AddNote extends StatelessWidget {
   }
 
   Widget loadImage() {
-    return Image.file(File(imagePath));
+    return Image.file(File(widget.imagePath));
   }
 
   @override
   Widget build(BuildContext context) {
     bool isSwitched = context.watch<Themeprovider>().isSwitched;
-    // String path = context.watch<Notesprovider>().imagePath;
+    String _lastWords = context.watch<Notesprovider>().lastWords;
 
-    title.text = existingTitle.isNotEmpty ? existingTitle : title.text;
-    note.text = existingNote.isNotEmpty ? existingNote : note.text;
+    title.text =
+        widget.existingTitle.isNotEmpty ? widget.existingTitle : title.text;
+    note.text = widget.existingNote.isNotEmpty
+        ? _lastWords.isNotEmpty && !widget.existingNote.contains(_lastWords)
+            ? widget.existingNote + _lastWords
+            : widget.existingNote
+        : _lastWords.isNotEmpty && !note.text.contains(_lastWords)
+            ? note.text + _lastWords
+            : note.text;
     return Scaffold(
         appBar: AppBar(
           leading: MyIconButton(
@@ -71,11 +91,14 @@ class AddNote extends StatelessWidget {
                 icon: 'Assets/Icons/${Element}',
                 Colour: isSwitched ? Pallette.blue : Pallette.white,
                 onPress: () {
+                  // print(_lastWords + 'djfhkj');
                   if (Element.toString() == 'tick-square.svg') {
-                    if (existingNote.isEmpty && existingTitle.isEmpty) {
-                      Boxes.postData(title.text, imagePath, note.text, context);
+                    if (widget.existingNote.isEmpty &&
+                        widget.existingTitle.isEmpty) {
+                      Boxes.postData(
+                          title.text, widget.imagePath, note.text, context);
                     } else {
-                      Boxes.updateData(data, title.text, note.text);
+                      Boxes.updateData(widget.data, title.text, note.text);
                       Navigator.pop(context);
                     }
 
@@ -96,7 +119,7 @@ class AddNote extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
             child: ListView(
               children: [
-                if (imagePath.isNotEmpty) loadImage(),
+                if (widget.imagePath.isNotEmpty) loadImage(),
                 TextFieldNote(
                   myController: title,
                   myFocusNode: f1,

@@ -13,7 +13,11 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NoteModalAdapter());
   var box = await Hive.openBox<NoteModal>('notes');
-  deviceName = await DeviceFriendlyName.getDeviceFriendlyName();
+  try {
+    deviceName = await DeviceFriendlyName.getDeviceFriendlyName();
+  } catch (e) {
+    print(e);
+  }
 
   runApp(MultiProvider(
     providers: [

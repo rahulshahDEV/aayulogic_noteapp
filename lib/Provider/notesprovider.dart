@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:notes/themes/pallette.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class Notesprovider with ChangeNotifier {
   bool gridExtend = false;
@@ -10,13 +11,33 @@ class Notesprovider with ChangeNotifier {
   bool enableAddMenu = false;
   bool noteAdded = false;
   bool voiceIsenabled = false;
-  // String imagePath = '';
+
+  SpeechToText speechToText = SpeechToText();
+  bool isListening = false;
+  String lastWords = '';
+
+  // String get getLastWords => _lastWords;
 
   Color boxcolour = Pallette.sblack;
 
   List activeColourBOx = [];
 
   List activeColorIndex = List<int>.filled(1, 2, growable: false);
+
+  void setLastWords(String words) {
+    lastWords = words;
+    notifyListeners();
+  }
+
+  void voiceListening(bool listenme) {
+    isListening = listenme;
+
+    if (!isListening) {
+      lastWords = '';
+    }
+
+    notifyListeners();
+  }
 
   void extendGrid() {
     gridExtend = !gridExtend;
@@ -42,15 +63,9 @@ class Notesprovider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Widget loadImage(String imagePath) {
-  //   this.imagePath = imagePath;
-  //   // return Image.file(File(imagePath));
-  //   notifyListeners();
-  //   return Text('');
-  // }
-
   void enableAddMenus() {
     enableAddMenu = !enableAddMenu;
+
     if (enableMenu) {
       enableMenu = false;
     }
