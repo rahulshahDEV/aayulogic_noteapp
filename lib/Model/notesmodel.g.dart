@@ -22,13 +22,14 @@ class NoteModalAdapter extends TypeAdapter<NoteModal> {
       content: fields[1] as String,
       created: fields[2] as String,
       updated: fields[3] as String,
+      colours: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoteModal obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class NoteModalAdapter extends TypeAdapter<NoteModal> {
       ..writeByte(3)
       ..write(obj.updated)
       ..writeByte(4)
-      ..write(obj.imagePath);
+      ..write(obj.imagePath)
+      ..writeByte(5)
+      ..write(obj.colours);
   }
 
   @override

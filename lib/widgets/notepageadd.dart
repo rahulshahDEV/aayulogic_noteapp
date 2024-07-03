@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:notes/Provider/notesprovider.dart';
 import 'package:notes/controller/boxes.dart';
 import 'package:notes/settings/bottomButton.dart';
@@ -91,11 +92,17 @@ class _NotePageAddState extends State<NotePageAdd> {
         ] else ...[
           Stack(children: [
             Center(
-              child: Icon(
-                size: 100,
-                _speechToText.isListening ? Icons.mic : Icons.mic_off,
-                color: Pallette.white,
-              ),
+              child: !_speechToText.isListening
+                  ? Icon(
+                      size: 100,
+                      Icons.mic_off,
+                      color: Pallette.white,
+                    )
+                  : Lottie.asset(
+                      height: 100,
+                      width: 100,
+                      'Assets/Icons/listen1.json',
+                    ),
             ),
             _speechToText.isListening
                 ? IconButton(

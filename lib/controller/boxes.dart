@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:notes/Model/notesmodel.dart';
+import 'package:notes/Provider/notesprovider.dart';
 import 'package:notes/extension/extension.dart';
+import 'package:notes/themes/pallette.dart';
 
 import 'package:notes/widgets/mydialog.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class Boxes {
@@ -54,6 +57,8 @@ class Boxes {
         final datas = box.getAt(imageIndex);
 
         final dataa = NoteModal(
+            colours:
+                Provider.of<Notesprovider>(context, listen: false).boxcolour,
             imagePath: savedImage.path,
             title: datas!.title,
             content: datas.content,
@@ -70,6 +75,7 @@ class Boxes {
         context.showSnackBar('Save Note To Add Image', myduration: 1000);
       } catch (e) {
         context.showSnackBar(e.toString());
+        print(e);
       }
       //  imageIndex = imageIndex[0].toInt();
     }
@@ -77,10 +83,13 @@ class Boxes {
 
   static Future<void> postData(
       String title, imagePath, note, BuildContext context) async {
-    // final Color activeColour = context.watch<Notesprovider>().boxcolour;
+    final String activeColour =
+        Provider.of<Notesprovider>(context, listen: false).boxcolour;
+    // print(activeColour);
 
     if (note.toString().isNotEmpty) {
       final data = NoteModal(
+          colours: activeColour,
           title: title,
           content: note,
           imagePath: imagePath.toString().isNotEmpty ? imagePath : '',
@@ -99,13 +108,17 @@ class Boxes {
     }
   }
 
-  static Future<void> updateData(NoteModal data, String title, note) async {
+  static Future<void> updateData(
+      NoteModal data, String title, note, context) async {
     // print(box.values.toList().indexOf(data));
+    final String activeColour =
+        Provider.of<Notesprovider>(context, listen: false).boxcolour;
 
     final storedData = box.values.toList();
     int index = storedData.indexOf(data);
     if (index.toString().isNotEmpty) {
       final dataa = NoteModal(
+          colours: activeColour,
           imagePath: data.imagePath,
           title: title,
           content: note,

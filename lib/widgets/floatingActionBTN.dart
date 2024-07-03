@@ -25,7 +25,7 @@ class FloatingBTN extends StatelessWidget {
           backgroundColor: Pallette.blue,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AddNote(
+              builder: (context) => const AddNote(
                 imagePath: '',
                 data: '',
                 existingNote: '',

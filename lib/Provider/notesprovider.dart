@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:notes/themes/pallette.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class Notesprovider with ChangeNotifier {
@@ -15,10 +12,19 @@ class Notesprovider with ChangeNotifier {
   SpeechToText speechToText = SpeechToText();
   bool isListening = false;
   String lastWords = '';
+  final List colours = [
+    '#3B69FA',
+    '#FFD666',
+    '#494C51',
+    '#8E33FF',
+    '#77ED8B',
+    '#FF5630',
+    '#2E323C'
+  ];
 
   // String get getLastWords => _lastWords;
 
-  Color boxcolour = Pallette.sblack;
+  String boxcolour = '#2E323C';
 
   List activeColourBOx = [];
 
@@ -75,17 +81,17 @@ class Notesprovider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateIndex(int index, Color activeColour) {
+  void updateIndex(int index) {
     activeColorIndex[0] = index;
-    if (activeColour == Color(0xffffffff)) {
-      boxcolour = Pallette.sblack;
-    } else if (activeColour == Color(0xff0e121b)) {
-      boxcolour = Pallette.bottomblack;
-    } else {
-      boxcolour = activeColour;
-    }
-    print(activeColour);
-
+    // if (index != 2) {
+    boxcolour = colours[index];
+    // } else {
+    // boxcolour = colours[2];
+    // }
     notifyListeners();
+  }
+
+  void disposeColour() {
+    boxcolour = '#2E323C';
   }
 }

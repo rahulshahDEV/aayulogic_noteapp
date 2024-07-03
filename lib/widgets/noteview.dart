@@ -23,7 +23,10 @@ class Noteview extends StatelessWidget {
       required this.index,
       required this.imagePath,
       required this.createdAt,
+      required this.boxColour,
       required this.updatedAt});
+
+  final String boxColour;
   final int index;
   final String title; // Title of the note
   final String content; // Content of the note
@@ -35,8 +38,10 @@ class Noteview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isSwitched = context.watch<Themeprovider>().isSwitched;
-    final Color activeColour = context.watch<Notesprovider>().boxcolour;
-    final List activeIndex = context.watch<Notesprovider>().activeColorIndex;
+    // final Color activeColour = context.watch<Notesprovider>().boxcolour;
+    // final List activeIndex = context.watch<Notesprovider>().activeColorIndex;
+
+    // final Color myColour = ;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8)
@@ -47,10 +52,15 @@ class Noteview extends StatelessWidget {
 
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isSwitched ? Pallette.blue : Pallette.sblack),
+          color: Color(Pallette.hexColour(boxColour))),
 
       child: InkWell(
         onTap: () {
+          // if(context.watch<Notesprovider>().activeColorIndex != 2){
+          //   context.read<Notesprovider>().updateIndex(2);
+          // }
+
+          // print(boxColour);
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => AddNote(
               imagePath: imagePath,

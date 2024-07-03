@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -12,8 +13,6 @@ import 'package:notes/settings/iconbutton.dart';
 import 'package:notes/settings/textfieldnote.dart';
 import 'package:notes/themes/pallette.dart';
 import 'package:provider/provider.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 
 // var obj = HiveModal();
 
@@ -26,7 +25,6 @@ class AddNote extends StatefulWidget {
       required this.data});
 
   final String imagePath;
-
   final String existingTitle;
   final String existingNote;
   final data;
@@ -44,6 +42,12 @@ class _AddNoteState extends State<AddNote> {
   final TextEditingController note = TextEditingController();
 
   // String _lastWords = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<Notesprovider>(context, listen: false).disposeColour();
+  }
 
   @override
   void dispose() {
@@ -98,7 +102,8 @@ class _AddNoteState extends State<AddNote> {
                       Boxes.postData(
                           title.text, widget.imagePath, note.text, context);
                     } else {
-                      Boxes.updateData(widget.data, title.text, note.text);
+                      Boxes.updateData(
+                          widget.data, title.text, note.text, context);
                       Navigator.pop(context);
                     }
 

@@ -16,6 +16,7 @@ class Pallette {
     String newColour = '0xff' + colour;
     newColour = newColour.replaceAll('#', '');
     int finalColour = int.parse(newColour);
+    // print(finalColour);
     return finalColour;
   }
 }

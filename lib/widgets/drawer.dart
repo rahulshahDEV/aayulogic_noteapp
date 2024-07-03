@@ -28,8 +28,8 @@ class MyDrawer extends StatelessWidget {
         children: [
           const CircleAvatar(
             radius: 50,
-            backgroundImage: NetworkImage(
-                'https://blogger.googleusercontent.com/img/a/AVvXsEgcpcGv6qdclLoPDIVpr5agLwpxENM0Xpv-VdWI9AKwPa-zLs3Fp-cxEcETAgj2gDiP6j6ctQikm4IhXdBPgYxI6n55GiZjJ5G_qdjUyH-PkoGysvBhk0W1dvzKwI_f7_JflaDBNol1LwuU8gkIiLbON_qZ3kUqPsEAlgihybJ3vC77KllS8juZrbySxA'),
+            backgroundImage:
+                NetworkImage('https://avatar.iran.liara.run/public'),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),

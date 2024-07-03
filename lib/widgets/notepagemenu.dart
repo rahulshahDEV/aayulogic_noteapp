@@ -19,7 +19,7 @@ class NotePageMenu extends StatelessWidget {
     {'icon': 'myshare.svg', 'text': 'Share'},
   ];
 
-  final List colours = [
+  final List boxColours = [
     Pallette.blue,
     Pallette.yellow,
     Pallette.white,
@@ -28,6 +28,7 @@ class NotePageMenu extends StatelessWidget {
     Pallette.orange,
     Pallette.black
   ];
+
   final String copyNote;
 
   @override
@@ -46,15 +47,13 @@ class NotePageMenu extends StatelessWidget {
         Flexible(
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: colours.length,
+            itemCount: boxColours.length,
             itemBuilder: (context, index) => ColourPalltte(
               func: () {
-                context
-                    .read<Notesprovider>()
-                    .updateIndex(index, colours[index]);
+                context.read<Notesprovider>().updateIndex(index);
               },
               index: index,
-              mycolour: colours[index],
+              mycolour: boxColours[index],
             ),
             separatorBuilder: (context, index) => const SizedBox(
               width: 15,
